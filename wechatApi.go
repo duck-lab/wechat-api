@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/duckLab/wechatApi/accessToken"
+	"github.com/duckLab/wechatApi/menu"
 )
 
 //API is the outlet of all APIs
@@ -113,4 +114,34 @@ func (api *API) GetAccessToken() (accessToken.Data, error) {
 	}
 
 	return accessToken.Data{}, errors.New("To be implemented")
+}
+
+//CreateMenu is used to create Menu
+func (api *API) CreateMenu(model menu.Model) error {
+	token, err := api.GetAccessToken()
+	if err != nil {
+		return err
+	}
+	api.callIncr(menu.CreateAPIName)
+	return menu.Create(model, api.baseURL, token.AccessToken)
+}
+
+//CreateCustomizedMenu is used to create customized Menu
+func (api *API) CreateCustomizedMenu(model menu.ConditionalMenu) (string, error) {
+	token, err := api.GetAccessToken()
+	if err != nil {
+		return "", err
+	}
+	api.callIncr(menu.CreateConditionalAPIName)
+	return menu.CreateConditional(model, api.baseURL, token.AccessToken)
+}
+
+//FetchMenuList is used to fetch all Menu
+func (api *API) FetchMenuList() (menu.FetchedList, error) {
+	token, err := api.GetAccessToken()
+	if err != nil {
+		return menu.FetchedList{}, err
+	}
+	api.callIncr(menu.FetchedListAPIName)
+	return menu.FetchList(api.baseURL, token.AccessToken)
 }

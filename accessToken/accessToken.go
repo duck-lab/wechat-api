@@ -5,8 +5,9 @@ import (
 	"errors"
 	"io/ioutil"
 	"net/http"
-	"strconv"
 	"time"
+
+	"github.com/duckLab/wechatApi/response"
 )
 
 //APIName is the name of API
@@ -26,12 +27,6 @@ type Data struct {
 	AccessToken string `json:"access_token"`
 	ExpiresIn   int64  `json:"expires_in"`
 	ExpiresTime time.Time
-}
-
-//Failed is the structure when fetch access token failed
-type Failed struct {
-	ErrCode int    `json:"errcode"`
-	ErrMsg  string `json:"errmsg"`
 }
 
 //StoreInFileParams ...
@@ -68,10 +63,10 @@ func Fetch(appID string, appSecret string, baseURL string) (Data, error) {
 	}
 
 	// parse to errormsg
-	var failed Failed
+	var failed response.CodeAndMessage
 	json.Unmarshal(body, &failed)
 	if failed.ErrCode != 0 {
-		return Data{}, errors.New(strconv.Itoa(failed.ErrCode) + ":" + failed.ErrMsg)
+		return Data{}, errors.New(failed.Format())
 	}
 	var data Data
 	json.Unmarshal(body, &data)
