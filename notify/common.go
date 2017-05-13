@@ -6,15 +6,15 @@ import (
 
 type NotifyHead struct {
 	XMLName        xml.Name `xml:"xml"`
-	AppID          cstring  `xml:"ToUserName"`
-	UserOpenID     cstring  `xml:"FromUserName"`
+	AppID          CString  `xml:"ToUserName"`
+	UserOpenID     CString  `xml:"FromUserName"`
 	CreateTimeUnix int64    `xml:"CreateTime"`
-	MsgType        cstring  `xml:"MsgType"`
+	MsgType        CString  `xml:"MsgType"`
 }
 
-type cstring string
+type CString string
 
-func (c cstring) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+func (c CString) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	return e.EncodeElement(struct {
 		string `xml:",cdata"`
 	}{string(c)}, start)
