@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/duckLab/wechatApi/response"
+	"github.com/duck-lab/wechat-api/httpHelper"
 )
 
 //ConditionalMenu is the menu by conditions
@@ -69,7 +69,7 @@ func CreateConditional(selfMenu ConditionalMenu, baseURL string, accessToken str
 		if menuIDContainer.MenuID != "" {
 			return menuIDContainer.MenuID, nil
 		}
-		var respMsg response.CodeAndMessage
+		var respMsg httpHelper.CodeAndMessage
 		err = json.Unmarshal(respBody, &respMsg)
 		if err != nil {
 			return "", err

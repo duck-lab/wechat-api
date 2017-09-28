@@ -4,10 +4,10 @@ import (
 	"errors"
 	"fmt"
 
-	"time"
+	"github.com/duck-lab/wechat-api/accessToken"
+	"github.com/duck-lab/wechat-api/menu"
 
-	"github.com/duckLab/wechatApi/accessToken"
-	"github.com/duckLab/wechatApi/menu"
+	"time"
 )
 
 //API is the outlet of all APIs
@@ -153,5 +153,5 @@ func (api *API) DeleteAllMenu() error {
 		return err
 	}
 	api.callIncr(menu.DeleteAllAPIName)
-	return menu.DelteAll(baseURL, token)
+	return menu.DeleteAll(api.baseURL, token.AccessToken)
 }

@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/duckLab/wechatApi/response"
+	"github.com/duck-lab/wechat-api/httpHelper"
 )
 
 //APIName is the name of API
@@ -63,7 +63,7 @@ func Fetch(appID string, appSecret string, baseURL string) (Data, error) {
 	}
 
 	// parse to errormsg
-	var failed response.CodeAndMessage
+	var failed httpHelper.CodeAndMessage
 	json.Unmarshal(body, &failed)
 	if failed.ErrCode != 0 {
 		return Data{}, errors.New(failed.Format())

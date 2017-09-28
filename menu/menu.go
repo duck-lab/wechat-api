@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/duckLab/wechatApi/response"
+	"github.com/duck-lab/wechat-api/httpHelper"
 
 	"errors"
 	"io/ioutil"
@@ -91,7 +91,7 @@ func Create(model Model, baseURL string, accessToken string) error {
 		if err != nil {
 			return err
 		}
-		var respMsg response.CodeAndMessage
+		var respMsg httpHelper.CodeAndMessage
 		err = json.Unmarshal(respBody, &respMsg)
 		if err != nil {
 			return err
@@ -119,7 +119,7 @@ func DeleteAll(baseURL string, accessToken string) error {
 		if err != nil {
 			return err
 		}
-		var respMsg response.CodeAndMessage
+		var respMsg httpHelper.CodeAndMessage
 		err = json.Unmarshal(respBody, &respMsg)
 		if err != nil {
 			return err

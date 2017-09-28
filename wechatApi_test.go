@@ -3,7 +3,7 @@ package wechatApi
 import "testing"
 import "os"
 import "fmt"
-import "github.com/duckLab/wechatApi/accessToken"
+import "github.com/duck-lab/wechat-api/accessToken"
 import "github.com/stretchr/testify/assert"
 
 func TestInvalid(t *testing.T) {
