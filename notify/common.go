@@ -1,5 +1,6 @@
 package notify
 
+// Head the common fields of wechat notify
 type Head struct {
 	AppID          string `xml:"ToUserName"`
 	UserOpenID     string `xml:"FromUserName"`

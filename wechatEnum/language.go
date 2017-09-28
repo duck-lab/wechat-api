@@ -1,10 +1,10 @@
-package language
+package wechatEnum
 
-//ZHCN ...
-var ZHCN = "zh_CN"
+//LangZhCN ...
+var LangZhCN = "zh_CN"
 
-//ZHTW ...
-var ZHTW = "zh_TW"
+//LangZhTW ...
+var LangZhTW = "zh_TW"
 
 /*
 1、简体中文 "zh_CN"

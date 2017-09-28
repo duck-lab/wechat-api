@@ -1,9 +1,12 @@
 package notify
 
 import "testing"
-import "encoding/xml"
 
-import "log"
+import (
+	"encoding/json"
+	"encoding/xml"
+	"log"
+)
 
 func TestNotifyHead(t *testing.T) {
 
@@ -18,5 +21,6 @@ func TestNotifyHead(t *testing.T) {
  <MsgId>1234567890123456</MsgId>
  </xml>`)
 	err := xml.Unmarshal(xmlBytes, &head)
-	log.Println(head, err)
+	jstr, _ := json.Marshal(head)
+	log.Println(string(jstr), err)
 }
