@@ -126,8 +126,8 @@ func (api *API) CreateMenu(model menu.Model) error {
 	return menu.Create(model, api.baseURL, token.AccessToken)
 }
 
-//CreateCustomizedMenu is used to create customized Menu
-func (api *API) CreateCustomizedMenu(model menu.ConditionalMenu) (string, error) {
+//CreateConditionalMenu is used to create customized Menu
+func (api *API) CreateConditionalMenu(model menu.ConditionalMenu) (string, error) {
 	token, err := api.GetAccessToken()
 	if err != nil {
 		return "", err
@@ -144,4 +144,14 @@ func (api *API) FetchMenuList() (menu.FetchedList, error) {
 	}
 	api.callIncr(menu.FetchedListAPIName)
 	return menu.FetchList(api.baseURL, token.AccessToken)
+}
+
+//DeleteAllMenu ...
+func (api *API) DeleteAllMenu() error {
+	token, err := api.GetAccessToken()
+	if err != nil {
+		return err
+	}
+	api.callIncr(menu.DeleteAllAPIName)
+	return menu.DelteAll(baseURL, token)
 }

@@ -82,6 +82,37 @@ func Create(model Model, baseURL string, accessToken string) error {
 	}
 	body := bytes.NewReader(modelJSONBytes)
 	resp, err := http.Post(baseURL+"/menu/create", "application/json", body)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode == http.StatusOK {
+		respBody, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return err
+		}
+		var respMsg response.CodeAndMessage
+		err = json.Unmarshal(respBody, &respMsg)
+		if err != nil {
+			return err
+		}
+		if respMsg.ErrCode != 0 {
+			return errors.New(respMsg.Format())
+		}
+		return nil
+	}
+	return errors.New("Net error")
+}
+
+//DeleteAllAPIName ...
+var DeleteAllAPIName = "DELETE_ALL_MENU"
+
+//DeleteAll ...
+func DeleteAll(baseURL string, accessToken string) error {
+	resp, err := http.Post(baseURL+"/menu/delete?access_token="+accessToken, "", nil)
+	if err != nil {
+		return err
+	}
 	defer resp.Body.Close()
 	if resp.StatusCode == http.StatusOK {
 		respBody, err := ioutil.ReadAll(resp.Body)
