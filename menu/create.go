@@ -4,8 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
-	"net/http"
 
 	"github.com/duck-lab/wechat-api/httpHelper"
 )
@@ -23,36 +21,10 @@ func CreateConditional(selfMenu ConditionalMenu, baseURL string, accessToken str
 	if err != nil {
 		return "", err
 	}
-	url := baseURL + "/menu/addconditional?access_token=" + accessToken
-	resp, err := http.Post(url, "application/json", bytes.NewReader(bodyBytes))
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode == http.StatusOK {
-		respBody, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			return "", err
-		}
-		var menuIDContainer IDContainer
-		err = json.Unmarshal(respBody, &menuIDContainer)
-		if err != nil {
-			return "", err
-		}
-		if menuIDContainer.MenuID != "" {
-			return menuIDContainer.MenuID, nil
-		}
-		var respMsg httpHelper.CodeAndMessage
-		err = json.Unmarshal(respBody, &respMsg)
-		if err != nil {
-			return "", err
-		}
-		if respMsg.ErrCode != 0 {
-			return "", errors.New(respMsg.Format())
-		}
-		return "", errors.New("Unknow error")
-	}
-	return "", errors.New("Network error")
+	path := "/menu/addconditional"
+	var menuIDContainer IDContainer
+	err = httpHelper.PostAndParse(baseURL, path, accessToken, bytes.NewReader(bodyBytes), &menuIDContainer)
+	return menuIDContainer.MenuID, err
 }
 
 //APINameCreate is the unique name of this API
@@ -69,25 +41,6 @@ func Create(model Model, baseURL string, accessToken string) error {
 		return errors.New("Marshal Menu failed")
 	}
 	body := bytes.NewReader(modelJSONBytes)
-	resp, err := http.Post(baseURL+"/menu/create", "application/json", body)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode == http.StatusOK {
-		respBody, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			return err
-		}
-		var respMsg httpHelper.CodeAndMessage
-		err = json.Unmarshal(respBody, &respMsg)
-		if err != nil {
-			return err
-		}
-		if respMsg.ErrCode != 0 {
-			return errors.New(respMsg.Format())
-		}
-		return nil
-	}
-	return errors.New("Net error")
+	var codeAndMessage httpHelper.CodeAndMessage
+	return httpHelper.PostAndParse(baseURL, "/menu/create", accessToken, body, &codeAndMessage)
 }

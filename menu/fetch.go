@@ -1,11 +1,6 @@
 package menu
 
-import (
-	"encoding/json"
-	"errors"
-	"io/ioutil"
-	"net/http"
-)
+import "github.com/duck-lab/wechat-api/httpHelper"
 
 //FetchedList ...
 type FetchedList struct {
@@ -18,20 +13,8 @@ var FetchedListAPIName = "FETCH_MENU_LIST"
 
 //FetchList ...
 func FetchList(baseURL string, accessToken string) (FetchedList, error) {
-	url := baseURL + "/menu/get?access_token=" + accessToken
-	resp, err := http.Get(url)
-	if err != nil {
-		return FetchedList{}, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode == http.StatusOK {
-		respBody, err := ioutil.ReadAll(resp.Body)
-		var fetchedList FetchedList
-		err = json.Unmarshal(respBody, &fetchedList)
-		if err != nil {
-			return FetchedList{}, err
-		}
-		return fetchedList, nil
-	}
-	return FetchedList{}, errors.New("Network error")
+	path := "/menu/get"
+	var fetchedList FetchedList
+	err := httpHelper.FetchAndParse(baseURL, path, accessToken, &fetchedList)
+	return fetchedList, err
 }
