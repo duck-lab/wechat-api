@@ -38,7 +38,7 @@ func (selfMenu *ConditionalMenu) isValid() error {
 }
 
 //CreateConditionalAPIName is the unique name of this API
-var CreateConditionalAPIName = "CREATE_CUSTOMIZED_MENU"
+var CreateConditionalAPIName = "CREATE_CONDITIONAL_MENU"
 
 //CreateConditional returns menuId and error
 func CreateConditional(selfMenu ConditionalMenu, baseURL string, accessToken string) (string, error) {
@@ -52,10 +52,10 @@ func CreateConditional(selfMenu ConditionalMenu, baseURL string, accessToken str
 	}
 	url := baseURL + "/menu/addconditional?access_token=" + accessToken
 	resp, err := http.Post(url, "application/json", bytes.NewReader(bodyBytes))
-	defer resp.Body.Close()
 	if err != nil {
 		return "", err
 	}
+	defer resp.Body.Close()
 	if resp.StatusCode == http.StatusOK {
 		respBody, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
