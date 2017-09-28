@@ -1,4 +1,4 @@
-package message
+package replyToWechat
 
 import "encoding/xml"
 
@@ -6,16 +6,6 @@ import "encoding/xml"
 type Model struct {
 	XMLName xml.Name `xml:"xml"`
 	head
-}
-
-type User struct {
-	Name  string
-	Email string
-}
-
-type Admin struct {
-	User
-	Level string
 }
 
 //Head is the common fields

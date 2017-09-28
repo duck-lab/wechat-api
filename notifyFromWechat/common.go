@@ -1,4 +1,4 @@
-package notify
+package notifyFromWechat
 
 // Head the common fields of wechat notify
 type Head struct {

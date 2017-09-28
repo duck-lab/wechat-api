@@ -1,4 +1,4 @@
-package message
+package replyToWechat
 
 import (
 	"encoding/xml"

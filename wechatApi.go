@@ -108,7 +108,7 @@ func (api *API) GetAccessToken() (accessToken.Data, error) {
 	}
 	if api.tokenStorageMode == accessToken.StoreInMemory {
 		data, err := accessToken.Fetch(api.appID, api.appSecret, api.baseURL)
-		api.callIncr(accessToken.APIName)
+		api.callIncr(accessToken.APINameFetch)
 		api.setCurrentToken(data)
 		return data, err
 	}
@@ -122,7 +122,7 @@ func (api *API) CreateMenu(model menu.Model) error {
 	if err != nil {
 		return err
 	}
-	api.callIncr(menu.CreateAPIName)
+	api.callIncr(menu.APINameCreate)
 	return menu.Create(model, api.baseURL, token.AccessToken)
 }
 
@@ -152,6 +152,6 @@ func (api *API) DeleteAllMenu() error {
 	if err != nil {
 		return err
 	}
-	api.callIncr(menu.DeleteAllAPIName)
+	api.callIncr(menu.APINameDeleteAll)
 	return menu.DeleteAll(api.baseURL, token.AccessToken)
 }

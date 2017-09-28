@@ -10,8 +10,8 @@ import (
 	"github.com/duck-lab/wechat-api/httpHelper"
 )
 
-//APIName is the name of API
-var APIName = "ACCESS_TOKEN"
+//APINameFetch is the name of API
+var APINameFetch = "FETCH_ACCESS_TOKEN"
 
 //StoreInMemory means store in a variable
 const StoreInMemory = 1
