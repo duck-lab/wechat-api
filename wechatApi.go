@@ -132,7 +132,7 @@ func (api *API) CreateConditionalMenu(model menu.ConditionalMenu) (string, error
 	if err != nil {
 		return "", err
 	}
-	api.callIncr(menu.CreateConditionalAPIName)
+	api.callIncr(menu.APINameCreateConditional)
 	return menu.CreateConditional(model, api.baseURL, token.AccessToken)
 }
 
@@ -142,7 +142,7 @@ func (api *API) FetchMenuList() (menu.FetchedList, error) {
 	if err != nil {
 		return menu.FetchedList{}, err
 	}
-	api.callIncr(menu.FetchedListAPIName)
+	api.callIncr(menu.APINameFetchedList)
 	return menu.FetchList(api.baseURL, token.AccessToken)
 }
 

@@ -8,8 +8,8 @@ type FetchedList struct {
 	ConditionalMenu []ConditionalMenu `json:"conditionalmenu"`
 }
 
-//FetchedListAPIName ..
-var FetchedListAPIName = "FETCH_MENU_LIST"
+//APINameFetchedList ..
+var APINameFetchedList = "FETCH_MENU_LIST"
 
 //FetchList ...
 func FetchList(baseURL string, accessToken string) (FetchedList, error) {
