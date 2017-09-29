@@ -142,7 +142,7 @@ func (api *API) FetchMenuList() (menu.FetchedList, error) {
 	if err != nil {
 		return menu.FetchedList{}, err
 	}
-	api.callIncr(menu.FetchedListAPIName)
+	api.callIncr(menu.APINameFetchedList)
 	return menu.FetchList(api.baseURL, token.AccessToken)
 }
 
