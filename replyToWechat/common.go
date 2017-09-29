@@ -2,18 +2,13 @@ package replyToWechat
 
 import "encoding/xml"
 
-//Model ...
+//Model is the common fields
 type Model struct {
-	XMLName xml.Name `xml:"xml"`
-	head
-}
-
-//Head is the common fields
-type head struct {
-	AppID          CString `xml:"ToUserName"`
-	UserOpenID     CString `xml:"FromUserName"`
-	CreateTimeUnix int64   `xml:"CreateTime"`
-	MsgType        CString `xml:"MsgType"`
+	XMLName        xml.Name `xml:"xml"`
+	AppID          CString  `xml:"ToUserName"`
+	UserOpenID     CString  `xml:"FromUserName"`
+	CreateTimeUnix int64    `xml:"CreateTime"`
+	MsgType        CString  `xml:"MsgType"`
 }
 
 //CString will be marshalled to CDATA
