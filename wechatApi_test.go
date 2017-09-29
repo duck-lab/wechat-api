@@ -35,11 +35,11 @@ func TestCallCount(t *testing.T) {
 		t.Error("You should set the WECHAT_APPID & WECHAT_APPSECRET in your env")
 	}
 	api := New(os.Getenv("WECHAT_APPID"), os.Getenv("WECHAT_APPSECRET"))
-	assert.Equal(t, 0, api.getCall(accessToken.APIName))
+	assert.Equal(t, 2, api.getCall(accessToken.APINameFetch))
 	token, err := api.GetAccessToken()
 	fmt.Println(token, err)
-	assert.Equal(t, 1, api.getCall(accessToken.APIName))
+	assert.Equal(t, 3, api.getCall(accessToken.APINameFetch))
 	token, err = api.GetAccessToken()
 	fmt.Println(token, err)
-	assert.Equal(t, 1, api.getCall(accessToken.APIName))
+	assert.Equal(t, 3, api.getCall(accessToken.APINameFetch))
 }
